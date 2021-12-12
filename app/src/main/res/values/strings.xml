@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">TallerApp</string>
+    <string name="hint_titulo">Agenda Contactos</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_apellido">Apellido</string>
+    <string name="hint_correo">Correo</string>
+    <string name="hint_telefono">Telefono</string>
+    <string name="hint_usuario">Usuario</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="btn_registrar">Registrar Nuevo Usuario</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_salir">Salir</string>
+    <string name="menu_nuevo">Nuevo Contacto</string>
+    <string name="menu_salir">Salir</string>
+</resources>
