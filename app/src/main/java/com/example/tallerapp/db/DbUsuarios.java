@@ -36,7 +36,7 @@ public class DbUsuarios extends DbHelper {
         return id;
     }
 
-    public boolean ExisteUsuario(String usuario){
+    public boolean BuscarUsuario(String usuario){
         boolean existe=false;
         Cursor cursor;
         try{
@@ -63,7 +63,7 @@ public class DbUsuarios extends DbHelper {
         return existe;
     }
 
-    public boolean ExisteCorreo(String correo){
+    public boolean BuscarCorreo(String correo){
         boolean existe=false;
         Cursor cursor;
         try{

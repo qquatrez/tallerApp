@@ -74,8 +74,8 @@ public class RegistrarUsuario extends AppCompatActivity {
         boolean correoExiste=false;
         boolean usuarioExiste=false;
         DbUsuarios dbUsuarios = new DbUsuarios(RegistrarUsuario.this);
-        correoExiste= dbUsuarios.ExisteCorreo(correo);
-        usuarioExiste=dbUsuarios.ExisteUsuario(usuario);
+        correoExiste= dbUsuarios.BuscarCorreo(correo);
+        usuarioExiste=dbUsuarios.BuscarUsuario(usuario);
 
         if(correoExiste || usuarioExiste){
             Toast.makeText(RegistrarUsuario.this,"Usuario o Correo ya registrado",Toast.LENGTH_LONG).show();
