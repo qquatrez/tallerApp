@@ -16,10 +16,10 @@ import com.example.tallerapp.db.DbUsuarios;
 
 public class RegistrarUsuario extends AppCompatActivity {
 
-    EditText usuario, correo, password;
-    Button registrar;
-    String usuarioHolder, correoHolder, passwordHolder;
-    Boolean editTextEmptyHolder;
+    EditText txtUsuario, txtCorreo, txtPassword;
+    Button btnRegistrar;
+    String usuario, correo, password;
+    Boolean estadoCampos;
     SQLiteDatabase sqLiteDatabaseObj;
     String SQLiteDataBaseQueryHolder ;
     DbHelper dbHelper;
@@ -33,19 +33,19 @@ public class RegistrarUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_usuario);
 
-        registrar = (Button)findViewById(R.id.btnRegistrarUsuario);
-        usuario = (EditText)findViewById(R.id.editUsuario);
-        correo = (EditText)findViewById(R.id.editCorreo);
-        password = (EditText)findViewById(R.id.editPassword);
+        btnRegistrar = (Button)findViewById(R.id.btnRegistrarUsuario);
+        txtUsuario = (EditText)findViewById(R.id.editUsuario);
+        txtCorreo = (EditText)findViewById(R.id.editCorreo);
+        txtPassword = (EditText)findViewById(R.id.editPassword);
 
         dbHelper = new DbHelper(this);
 
-        registrar.setOnClickListener(new View.OnClickListener() {
+        btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // Checking EditText is empty or Not.
-                CheckEditTextStatus();
+                //Controlo campos ingreso de todos los campos
+                ControlarCampos();
 
                 // Method to check Email is already exists or not.
                 CheckingEmailAlreadyExistsOrNot();
@@ -61,56 +61,45 @@ public class RegistrarUsuario extends AppCompatActivity {
     // Limpiar cajas
     public void EmptyEditTextAfterDataInsert(){
 
-        usuario.getText().clear();
-        correo.getText().clear();
-        password.getText().clear();
+        txtUsuario.getText().clear();
+        txtCorreo.getText().clear();
+        txtPassword.getText().clear();
 
     }
 
-
-
-
     //Metodo para Agregar Usuarios
-    public void InsertDataIntoSQLiteDatabase(){
-
-        //cajas no vacias ejecuta AgregarUsuario
-        if(editTextEmptyHolder)
+    public void RegistrarUsuario(){
+        //cajas no vacias -> ejecuta AgregarUsuario
+        if(estadoCampos)
         {
             DbUsuarios dbUsuarios = new DbUsuarios(RegistrarUsuario.this);
-            long id=dbUsuarios.agregarUsuario(usuarioHolder, correoHolder, passwordHolder);
+            long id=dbUsuarios.agregarUsuario(usuario, correo, password);
 
             if(id>0){
                 Toast.makeText(RegistrarUsuario.this,"Usuario Registrado", Toast.LENGTH_LONG).show();
                 finish();
             }
             else{
-                Toast.makeText(RegistrarUsuario.this,"Error registrar Usuario", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(RegistrarUsuario.this,"Error al registrar Usuario", Toast.LENGTH_LONG).show();
             }
         }
-        //mensaje cajas vacias
+        //Caja vacia ->mensaje de error no ejecuta
         else {
             Toast.makeText(RegistrarUsuario.this,"Se deben completar todos los campos.", Toast.LENGTH_LONG).show();
         }
-
     }
 
     //Metodo Controlar cajas no vacias
-    public void CheckEditTextStatus(){
+    public void ControlarCampos(){
+        usuario = txtUsuario.getText().toString() ;
+        correo = txtCorreo.getText().toString();
+        password = txtPassword.getText().toString();
 
-        // Getting value from All EditText and storing into String Variables.
-        usuarioHolder = usuario.getText().toString() ;
-        correoHolder = correo.getText().toString();
-        passwordHolder = password.getText().toString();
-
-        if(TextUtils.isEmpty(usuarioHolder) || TextUtils.isEmpty(correoHolder) || TextUtils.isEmpty(passwordHolder)){
-
-            editTextEmptyHolder = false ;
-
+        if(TextUtils.isEmpty(usuario) || TextUtils.isEmpty(correo) || TextUtils.isEmpty(password)){
+            estadoCampos = false ;
         }
         else {
-
-            editTextEmptyHolder = true ;
+            estadoCampos = true ;
         }
     }
 
@@ -123,7 +112,7 @@ public class RegistrarUsuario extends AppCompatActivity {
         // Adding search email query to cursor.
         cursor = sqLiteDatabaseObj.query(DbHelper.TABLE_USUARIOS,
                 null,
-                " " + DbHelper.table_U_Column_1_Usuario + "=?", new String[]{usuarioHolder},
+                " " + DbHelper.table_U_Column_1_Usuario + "=?", new String[]{usuario},
                 null,
                 null,
                 null);
@@ -161,7 +150,7 @@ public class RegistrarUsuario extends AppCompatActivity {
         else {
 
             // If email already dose n't exists then user registration details will entered to SQLite database.
-            InsertDataIntoSQLiteDatabase();
+            RegistrarUsuario();
 
         }
 
