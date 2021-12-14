@@ -68,7 +68,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //Metodos para Usuarios
     //agregar usuario
-    public void agregarUsuario(String usuario, String correo,String  password){
+    /*public long agregarUsuario(String usuario, String correo, String  password){
         long id = 0;
         try{
             SQLiteDatabase db = this.getWritableDatabase();
@@ -81,8 +81,8 @@ public class DbHelper extends SQLiteOpenHelper {
         }catch (Exception ex){
             ex.toString();
         }
-
-    }
+        return id;
+    }*/
 
 
 }//cierro llave principal

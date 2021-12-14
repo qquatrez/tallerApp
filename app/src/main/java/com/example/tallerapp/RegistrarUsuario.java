@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tallerapp.db.DbHelper;
+import com.example.tallerapp.db.DbUsuarios;
 
 public class RegistrarUsuario extends AppCompatActivity {
 
@@ -69,40 +70,32 @@ public class RegistrarUsuario extends AppCompatActivity {
 
 
 
-    // Insert data into SQLite database method.
+    //Metodo para Agregar Usuarios
     public void InsertDataIntoSQLiteDatabase(){
 
-        // If editText is not empty then this block will executed.
+        //cajas no vacias ejecuta AgregarUsuario
         if(editTextEmptyHolder)
         {
+            DbUsuarios dbUsuarios = new DbUsuarios(RegistrarUsuario.this);
+            long id=dbUsuarios.agregarUsuario(usuarioHolder, correoHolder, passwordHolder);
 
-            // SQLite query to insert data into table.
-            SQLiteDataBaseQueryHolder = "INSERT INTO "+DbHelper.TABLE_USUARIOS
-                    +" (usuario,correo,password)" +
-                    " VALUES('"+usuarioHolder+"', '"+correoHolder+"', '"+passwordHolder+"');";
+            if(id>0){
+                Toast.makeText(RegistrarUsuario.this,"Usuario Registrado", Toast.LENGTH_LONG).show();
+                finish();
+            }
+            else{
+                Toast.makeText(RegistrarUsuario.this,"Error registrar Usuario", Toast.LENGTH_LONG).show();
 
-            // Executing query.
-            sqLiteDatabaseObj.execSQL(SQLiteDataBaseQueryHolder);
-
-            // Closing SQLite database object.
-            sqLiteDatabaseObj.close();
-
-            // Printing toast message after done inserting.
-            Toast.makeText(RegistrarUsuario.this,"Usuario Registrado", Toast.LENGTH_LONG).show();
-            finish();
-
+            }
         }
-        // This block will execute if any of the registration EditText is empty.
+        //mensaje cajas vacias
         else {
-
-            // Printing toast message if any of EditText is empty.
             Toast.makeText(RegistrarUsuario.this,"Se deben completar todos los campos.", Toast.LENGTH_LONG).show();
-
         }
 
     }
 
-    // Method to check EditText is empty or Not.
+    //Metodo Controlar cajas no vacias
     public void CheckEditTextStatus(){
 
         // Getting value from All EditText and storing into String Variables.
