@@ -15,7 +15,7 @@ public class DbHelper extends SQLiteOpenHelper {
     //Base de datos
     private static final String DATABASE_NOMBRE="taller.db";
 
-    //Usuarios
+    //tabla Usuarios
     public static final String TABLE_USUARIOS ="t_usuarios";
     //columnas
     public static final String table_U_Column_ID="id";
@@ -62,28 +62,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE "+TABLE_USUARIOS);
         db.execSQL("DROP TABLE "+TABLE_CONTACTOS);
         onCreate(db);
-
         Log.e("oncreate","oncreate");
     }
-
-    //Metodos para Usuarios
-    //agregar usuario
-    /*public long agregarUsuario(String usuario, String correo, String  password){
-        long id = 0;
-        try{
-            SQLiteDatabase db = this.getWritableDatabase();
-            ContentValues values = new ContentValues();
-            values.put(table_U_Column_1_Usuario, usuario);
-            values.put(table_U_Column_2_Correo, correo);
-            values.put(table_U_Column_3_Password, password);
-            id=db.insert(TABLE_USUARIOS,null, values );
-            db.close();
-        }catch (Exception ex){
-            ex.toString();
-        }
-        return id;
-    }*/
-
-
 }//cierro llave principal
 

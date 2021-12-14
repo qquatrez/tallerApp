@@ -20,13 +20,7 @@ public class RegistrarUsuario extends AppCompatActivity {
     Button btnRegistrar;
     String usuario, correo, password;
     Boolean estadoCampos;
-    SQLiteDatabase sqLiteDatabaseObj;
-    String SQLiteDataBaseQueryHolder ;
     DbHelper dbHelper;
-    Cursor cursor;
-    String F_Result = "Not_Found";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,117 +39,71 @@ public class RegistrarUsuario extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Controlo campos ingreso de todos los campos
-                ControlarCampos();
+                estadoCampos=ControlarCampos();
 
-                // Method to check Email is already exists or not.
-                CheckingEmailAlreadyExistsOrNot();
-
-                // Empty EditText After done inserting process.
-                EmptyEditTextAfterDataInsert();
-
+                if(estadoCampos){
+                    RegistrarUsuario();
+                    LimpiarCampos();
+                }
+                else{
+                    Toast.makeText(RegistrarUsuario.this,"Se deben completar todos los campos.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
     }
 
-    // Limpiar cajas
-    public void EmptyEditTextAfterDataInsert(){
-
-        txtUsuario.getText().clear();
-        txtCorreo.getText().clear();
-        txtPassword.getText().clear();
-
-    }
-
-    //Metodo para Agregar Usuarios
-    public void RegistrarUsuario(){
-        //cajas no vacias -> ejecuta AgregarUsuario
-        if(estadoCampos)
-        {
-            DbUsuarios dbUsuarios = new DbUsuarios(RegistrarUsuario.this);
-            long id=dbUsuarios.agregarUsuario(usuario, correo, password);
-
-            if(id>0){
-                Toast.makeText(RegistrarUsuario.this,"Usuario Registrado", Toast.LENGTH_LONG).show();
-                finish();
-            }
-            else{
-                Toast.makeText(RegistrarUsuario.this,"Error al registrar Usuario", Toast.LENGTH_LONG).show();
-            }
-        }
-        //Caja vacia ->mensaje de error no ejecuta
-        else {
-            Toast.makeText(RegistrarUsuario.this,"Se deben completar todos los campos.", Toast.LENGTH_LONG).show();
-        }
-    }
-
     //Metodo Controlar cajas no vacias
-    public void ControlarCampos(){
+    public boolean ControlarCampos(){
+        boolean estado=false;
+
         usuario = txtUsuario.getText().toString() ;
         correo = txtCorreo.getText().toString();
         password = txtPassword.getText().toString();
 
         if(TextUtils.isEmpty(usuario) || TextUtils.isEmpty(correo) || TextUtils.isEmpty(password)){
-            estadoCampos = false ;
+            estado = false ;
         }
         else {
-            estadoCampos = true ;
+            estado = true ;
+        }
+        return  estado;
+    }
+
+    public void RegistrarUsuario(){
+        boolean correoExiste=false;
+        boolean usuarioExiste=false;
+        DbUsuarios dbUsuarios = new DbUsuarios(RegistrarUsuario.this);
+        correoExiste= dbUsuarios.ExisteCorreo(correo);
+        usuarioExiste=dbUsuarios.ExisteUsuario(usuario);
+
+        if(correoExiste || usuarioExiste){
+            Toast.makeText(RegistrarUsuario.this,"Usuario o Correo ya registrado",Toast.LENGTH_LONG).show();
+        }
+        else{
+            GuardarUsuario();
         }
     }
 
-    // Checking Email is already exists or not.
-    public void CheckingEmailAlreadyExistsOrNot(){
+    //Metodo para Agregar Usuarios a base SqlLite
+    public void GuardarUsuario(){
+        DbUsuarios dbUsuarios = new DbUsuarios(RegistrarUsuario.this);
+        long id=dbUsuarios.agregarUsuario(usuario, correo, password);
 
-        // Opening SQLite database write permission.
-        sqLiteDatabaseObj = dbHelper.getWritableDatabase();
-
-        // Adding search email query to cursor.
-        cursor = sqLiteDatabaseObj.query(DbHelper.TABLE_USUARIOS,
-                null,
-                " " + DbHelper.table_U_Column_1_Usuario + "=?", new String[]{usuario},
-                null,
-                null,
-                null);
-
-        while (cursor.moveToNext()) {
-
-            if (cursor.isFirst()) {
-
-                cursor.moveToFirst();
-
-                // If Email is already exists then Result variable value set as Email Found.
-                F_Result = "Usuario Encontrado";
-
-                // Closing cursor.
-                cursor.close();
-            }
+        if(id>0){
+            Toast.makeText(RegistrarUsuario.this,"Usuario Registrado", Toast.LENGTH_LONG).show();
+            finish();
         }
-
-        // Calling method to check final result and insert data into SQLite database.
-        CheckFinalResult();
-
+        else{
+            Toast.makeText(RegistrarUsuario.this,"Error al registrar Usuario", Toast.LENGTH_LONG).show();
+        }
     }
 
-    // Checking result
-    public void CheckFinalResult(){
-
-        // Checking whether email is already exists or not.
-        if(F_Result.equalsIgnoreCase("Usuario Encontrado"))
-        {
-
-            // If email is exists then toast msg will display.
-            Toast.makeText(RegistrarUsuario.this,"Usuario ya registrado",Toast.LENGTH_LONG).show();
-
-        }
-        else {
-
-            // If email already dose n't exists then user registration details will entered to SQLite database.
-            RegistrarUsuario();
-
-        }
-
-        F_Result = "No Existe" ;
-
+    // Limpiar cajas
+    public void LimpiarCampos(){
+        txtUsuario.getText().clear();
+        txtCorreo.getText().clear();
+        txtPassword.getText().clear();
     }
 
 }
