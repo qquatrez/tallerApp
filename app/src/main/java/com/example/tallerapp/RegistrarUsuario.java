@@ -39,7 +39,7 @@ public class RegistrarUsuario extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Controlo campos ingreso de todos los campos
-                estadoCampos=ControlarCampos();
+                estadoCampos=ControlarCamposRegistrar();
 
                 if(estadoCampos){
                     RegistrarUsuario();
@@ -54,8 +54,8 @@ public class RegistrarUsuario extends AppCompatActivity {
     }
 
     //Metodo Controlar cajas no vacias
-    public boolean ControlarCampos(){
-        boolean estado=false;
+    public Boolean ControlarCamposRegistrar(){
+        Boolean estado=false;
 
         usuario = txtUsuario.getText().toString() ;
         correo = txtCorreo.getText().toString();
@@ -71,8 +71,8 @@ public class RegistrarUsuario extends AppCompatActivity {
     }
 
     public void RegistrarUsuario(){
-        boolean correoExiste=false;
-        boolean usuarioExiste=false;
+        Boolean correoExiste=false;
+        Boolean usuarioExiste=false;
         DbUsuarios dbUsuarios = new DbUsuarios(RegistrarUsuario.this);
         correoExiste= dbUsuarios.BuscarCorreo(correo);
         usuarioExiste=dbUsuarios.BuscarUsuario(usuario);

@@ -90,8 +90,30 @@ public class DbUsuarios extends DbHelper {
         return existe;
     }
 
-
-
-
-
+    public boolean BuscarPassword(String password){
+        boolean existe=false;
+        Cursor cursor;
+        try{
+            DbHelper dbHelper = new DbHelper(context);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            cursor= db.query(TABLE_USUARIOS,
+                    null,
+                    "" + table_U_Column_3_Password +"=?"+ password,
+                    null,
+                    null,
+                    null,
+                    null);
+            while(cursor.moveToNext()){
+                if(cursor.isFirst()){
+                    cursor.moveToFirst();
+                    existe=true;
+                    cursor.close();
+                }
+            }
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+        return existe;
+    }
 }
