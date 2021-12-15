@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TallerApp</string>
     <string name="hint_titulo">Agenda Contactos</string>
+    <string name="hint_titulo_Agregar_Usuario">Nuevo Usuario</string>
+    <string name="hint_titulo_Agregar">Agregar Contactos</string>
     <string name="hint_nombre">Nombre</string>
     <string name="hint_apellido">Apellido</string>
     <string name="hint_correo">Correo</string>

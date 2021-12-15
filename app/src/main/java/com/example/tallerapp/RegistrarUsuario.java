@@ -28,9 +28,9 @@ public class RegistrarUsuario extends AppCompatActivity {
         setContentView(R.layout.activity_registrar_usuario);
 
         btnRegistrar = (Button)findViewById(R.id.btnRegistrarUsuario);
-        txtUsuario = (EditText)findViewById(R.id.editUsuario);
-        txtCorreo = (EditText)findViewById(R.id.editCorreo);
-        txtPassword = (EditText)findViewById(R.id.editPassword);
+        txtUsuario = (EditText)findViewById(R.id.txtUsuario);
+        txtCorreo = (EditText)findViewById(R.id.txtCorreo);
+        txtPassword = (EditText)findViewById(R.id.txtPassword);
 
         dbHelper = new DbHelper(this);
 

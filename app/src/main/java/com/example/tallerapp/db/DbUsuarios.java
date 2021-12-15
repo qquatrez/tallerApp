@@ -44,7 +44,7 @@ public class DbUsuarios extends DbHelper {
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             cursor= db.query(TABLE_USUARIOS,
                     null,
-                    "" + table_U_Column_1_Usuario +"=?"+ usuario,
+                    "" + table_U_Column_1_Usuario +"='"+ usuario+"'",
                     null,
                     null,
                     null,
@@ -71,7 +71,7 @@ public class DbUsuarios extends DbHelper {
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             cursor= db.query(TABLE_USUARIOS,
                     null,
-                    "" + table_U_Column_2_Correo +"=?"+ correo,
+                    "" + table_U_Column_2_Correo +"='"+ correo+"'",
                     null,
                     null,
                     null,
@@ -98,7 +98,7 @@ public class DbUsuarios extends DbHelper {
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             cursor= db.query(TABLE_USUARIOS,
                     null,
-                    "" + table_U_Column_3_Password +"=?"+ password,
+                    "" + table_U_Column_3_Password +"='"+ password+"'",
                     null,
                     null,
                     null,
