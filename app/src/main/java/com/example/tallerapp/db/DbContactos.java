@@ -20,7 +20,7 @@ public class DbContactos extends DbHelper {
         this.context = context;
     }
 
-    public long agregarContacto(String nombre, String apellido, String correo, String telefono) {
+    public long AgregarContacto(String nombre, String apellido, String correo, String telefono) {
 
         long id = 0;
         try {
@@ -67,7 +67,7 @@ public class DbContactos extends DbHelper {
         return listaContactos;
     }
 
-    public Contactos verContacto(int id){
+    public Contactos VerContacto(int id){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -90,7 +90,7 @@ public class DbContactos extends DbHelper {
         return contacto;
     }
 
-    public boolean actualizarContacto(int id, String nombre, String apellido, String correo, String telefono){
+    public boolean ActualizarContacto(int id, String nombre, String apellido, String correo, String telefono){
 
         boolean correcto = false;
         DbHelper dbHelper = new DbHelper(context);

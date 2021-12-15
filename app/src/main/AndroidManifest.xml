@@ -11,7 +11,7 @@
         android:theme="@style/Theme.TallerApp">
         <activity android:name=".RegistrarUsuario"></activity>
         <activity android:name=".Principal" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginUsuario">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

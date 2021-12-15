@@ -3,8 +3,6 @@ package com.example.tallerapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +13,7 @@ import android.widget.Toast;
 import com.example.tallerapp.db.DbHelper;
 import com.example.tallerapp.db.DbUsuarios;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginUsuario extends AppCompatActivity {
 
     Button btnLogin, btnRegistrar;
     EditText txtUsuario, txtPassword ;
@@ -26,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         btnLogin = (Button)findViewById(R.id.buttonLogin);
         btnRegistrar = (Button)findViewById(R.id.buttonRegistrar);
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     LimpiarCampos();
                 }
                 else{
-                    Toast.makeText(MainActivity.this,"Se deben completar todos los campos.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginUsuario.this,"Se deben completar todos los campos.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RegistrarUsuario.class);
+                Intent intent = new Intent(LoginUsuario.this, RegistrarUsuario.class);
                 startActivity(intent);
             }
         });
@@ -78,17 +76,17 @@ public class MainActivity extends AppCompatActivity {
     public void LoginUsuario(){
         Boolean usuarioLogin=false;
         Boolean passwordLogin=false;
-        DbUsuarios dbUsuarios = new DbUsuarios(MainActivity.this);
+        DbUsuarios dbUsuarios = new DbUsuarios(LoginUsuario.this);
         usuarioLogin=dbUsuarios.BuscarUsuario(usuario);
         passwordLogin=dbUsuarios.BuscarPassword(password);
 
         if(usuarioLogin && passwordLogin){
-            Toast.makeText(MainActivity.this,"Login Correcto",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(MainActivity.this, Principal.class);
+            Toast.makeText(LoginUsuario.this,"LoginUsuario Correcto",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(LoginUsuario.this, Principal.class);
             startActivity(intent);
         }
         else{
-            Toast.makeText(MainActivity.this,"Usuario o Password Incorrecto.",Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginUsuario.this,"Usuario o Password Incorrecto.",Toast.LENGTH_LONG).show();
         }
 
     }

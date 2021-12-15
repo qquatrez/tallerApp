@@ -91,11 +91,11 @@ public class RegistrarUsuario extends AppCompatActivity {
         long id=dbUsuarios.agregarUsuario(usuario, correo, password);
 
         if(id>0){
-            Toast.makeText(RegistrarUsuario.this,"Usuario Registrado", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegistrarUsuario.this,"Usuario registrado", Toast.LENGTH_LONG).show();
             finish();
         }
         else{
-            Toast.makeText(RegistrarUsuario.this,"Error al registrar Usuario", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegistrarUsuario.this,"Error al registrar usuario", Toast.LENGTH_LONG).show();
         }
     }
 
