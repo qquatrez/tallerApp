@@ -51,7 +51,7 @@ public class Principal extends AppCompatActivity {
     }
 
     private void NuevoRegistro(){
-        Intent intent = new Intent(this, NuevoContactoActivity.class);
+        Intent intent = new Intent(this, NuevoContacto.class);
         startActivity(intent);
     }
 }

@@ -10,8 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TallerApp">
         <activity
-            android:name=".NuevoContactoActivity"
-            android:exported="false" />
+            android:name=".NuevoContacto"
+            android:parentActivityName=".Principal">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Principal"
+                />
+            </activity>
         <activity android:name=".RegistrarUsuario" />
         <activity android:name=".Principal" />
         <activity android:name=".LoginUsuario">

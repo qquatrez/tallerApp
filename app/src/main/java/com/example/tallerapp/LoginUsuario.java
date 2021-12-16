@@ -81,7 +81,7 @@ public class LoginUsuario extends AppCompatActivity {
         passwordLogin=dbUsuarios.BuscarPassword(password);
 
         if(usuarioLogin && passwordLogin){
-            Toast.makeText(LoginUsuario.this,"LoginUsuario Correcto",Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginUsuario.this,"Login Usuario Correcto",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(LoginUsuario.this, Principal.class);
             startActivity(intent);
         }
