@@ -40,7 +40,7 @@ public class DbContactos extends DbHelper {
         return id;
     }
 
-    public ArrayList<Contactos> mostrarContactos(){
+    public ArrayList<Contactos> MostrarContactos(){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
